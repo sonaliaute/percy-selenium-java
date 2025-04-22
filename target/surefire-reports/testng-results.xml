@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2025-04-22T18:34:08 IST" name="Surefire suite" finished-at="2025-04-22T18:35:47 IST" duration-ms="99689">
+    <groups>
+    </groups>
+    <test started-at="2025-04-22T18:34:08 IST" name="Surefire test" finished-at="2025-04-22T18:35:47 IST" duration-ms="99689">
+      <class name="io.percy.selenium.BajajDemoTest">
+        <test-method is-config="true" signature="testSetup()[pri:0, instance:io.percy.selenium.BajajDemoTest@20d28811]" started-at="2025-04-22T18:33:53 IST" name="testSetup" finished-at="2025-04-22T18:34:08 IST" duration-ms="14609" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testSetup -->
+        <test-method signature="takesMultipleSnapshotsInOneTestCase()[pri:0, instance:io.percy.selenium.BajajDemoTest@20d28811]" started-at="2025-04-22T18:34:08 IST" name="takesMultipleSnapshotsInOneTestCase" finished-at="2025-04-22T18:35:47 IST" duration-ms="99597" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- takesMultipleSnapshotsInOneTestCase -->
+        <test-method is-config="true" signature="testTeardown()[pri:0, instance:io.percy.selenium.BajajDemoTest@20d28811]" started-at="2025-04-22T18:35:47 IST" name="testTeardown" finished-at="2025-04-22T18:35:49 IST" duration-ms="1408" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testTeardown -->
+      </class> <!-- io.percy.selenium.BajajDemoTest -->
+    </test> <!-- Surefire test -->
+  </suite> <!-- Surefire suite -->
+</testng-results>
