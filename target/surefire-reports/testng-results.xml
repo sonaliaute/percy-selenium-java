@@ -2,20 +2,20 @@
 <testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2025-04-23T05:36:30 IST" name="Surefire suite" finished-at="2025-04-23T05:38:02 IST" duration-ms="91565">
+  <suite started-at="2025-04-23T13:41:16 IST" name="Surefire suite" finished-at="2025-04-23T13:44:30 IST" duration-ms="194349">
     <groups>
     </groups>
-    <test started-at="2025-04-23T05:36:30 IST" name="Surefire test" finished-at="2025-04-23T05:38:02 IST" duration-ms="91565">
+    <test started-at="2025-04-23T13:41:16 IST" name="Surefire test" finished-at="2025-04-23T13:44:30 IST" duration-ms="194349">
       <class name="io.percy.selenium.BajajDemoTest">
-        <test-method is-config="true" signature="testSetup()[pri:0, instance:io.percy.selenium.BajajDemoTest@20d28811]" started-at="2025-04-23T05:36:15 IST" name="testSetup" finished-at="2025-04-23T05:36:30 IST" duration-ms="14632" status="PASS">
+        <test-method is-config="true" signature="testSetup()[pri:0, instance:io.percy.selenium.BajajDemoTest@20d28811]" started-at="2025-04-23T13:40:55 IST" name="testSetup" finished-at="2025-04-23T13:41:16 IST" duration-ms="21325" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testSetup -->
-        <test-method signature="takesMultipleSnapshotsInOneTestCase()[pri:0, instance:io.percy.selenium.BajajDemoTest@20d28811]" started-at="2025-04-23T05:36:30 IST" name="takesMultipleSnapshotsInOneTestCase" finished-at="2025-04-23T05:38:02 IST" duration-ms="91498" status="PASS">
+        <test-method signature="takesMultipleSnapshotsInOneTestCase()[pri:0, instance:io.percy.selenium.BajajDemoTest@20d28811]" started-at="2025-04-23T13:41:16 IST" name="takesMultipleSnapshotsInOneTestCase" finished-at="2025-04-23T13:44:30 IST" duration-ms="194274" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- takesMultipleSnapshotsInOneTestCase -->
-        <test-method is-config="true" signature="testTeardown()[pri:0, instance:io.percy.selenium.BajajDemoTest@20d28811]" started-at="2025-04-23T05:38:02 IST" name="testTeardown" finished-at="2025-04-23T05:38:03 IST" duration-ms="1359" status="PASS">
+        <test-method is-config="true" signature="testTeardown()[pri:0, instance:io.percy.selenium.BajajDemoTest@20d28811]" started-at="2025-04-23T13:44:31 IST" name="testTeardown" finished-at="2025-04-23T13:44:32 IST" duration-ms="1409" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testTeardown -->
