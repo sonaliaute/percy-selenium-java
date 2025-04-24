@@ -22,8 +22,8 @@ import java.util.Map;
 import java.util.Properties;
 
 public class BajajDemoTest {
-    private static final String USERNAME = "sonaliaute_962AWm";
-    private static final String ACCESSKEY = "ZmAc2cBFx8zdS9ivi3HW";
+    private static final String USERNAME = "monishkhanzode_WJlN0B";
+    private static final String ACCESSKEY = "eETrxNx2VwYzmLcUP2Su";
     private static final String URL = "https://" + USERNAME + ":" + ACCESSKEY + "@hub-cloud.browserstack.com/wd/hub";
     private WebDriver driver;
     private io.percy.selenium.Percy percy;
@@ -279,7 +279,7 @@ public class BajajDemoTest {
             Assert.fail("Excel sheet is null. Check if file exists and is loaded properly.");
             return;
         }
-
+        
         int lastRow = sheet.getLastRowNum();
         System.out.println("Processing " + lastRow + " rows from Excel sheet");
 
@@ -291,36 +291,50 @@ public class BajajDemoTest {
                 if (screenShotName != null && !screenShotName.isEmpty()) {
                     System.out.println("Processing row " + i + ": " + screenShotName + " -> " + url);
                     driver.get(TEST_URL + url);
-
-                    // Set viewport sizes for responsive testing - match sizes from screenshot
-                    int[] widths = {375, 1280};  // Match the widths shown in your testing tool
                     
-                    for (int width : widths) {
-                        // Set window dimensions - height can be adjusted as needed
-                        driver.manage().window().setSize(new Dimension(width, 900));
-                        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
-                        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(60));
-                        
-                        // Wait for page to fully load
-                        waitForPageLoad();
-                        
-                        // Ensure we're at the top of the page for consistent snapshot
-                        ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, 0)");
-                        Thread.sleep(2000);
-                        
-                        // Take Percy snapshot with appropriate naming convention
-                        String responsiveSnapshotName = width == 375 ? screenShotName + "_PL" : screenShotName + "_GL";
-                        percy.snapshot(responsiveSnapshotName, java.util.List.of(width));
-                        System.out.println("Snapshot taken: " + responsiveSnapshotName + " at width: " + width + "px");
+                    // Set window to fullscreen and add improved waits
+                   // driver.manage().window().fullscreen();
+                    driver.manage().window().setSize(new Dimension(1440, 900)); // Match Figma width
+
+                    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+                    driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(60));
+                    
+                    // Wait for page to fully load
+                    waitForPageLoad();
+                    
+                    int height = driver.manage().window().getSize().getHeight();
+                    int currentposition = 0;
+                    int increment = height / 10;
+                    
+                    for (int j = 0; j <= 12; j++) {
+                        currentposition = j * increment;
+                        ((JavascriptExecutor) driver)
+                            .executeScript("window.scrollBy(0, " + currentposition + ")");
+                        Thread.sleep(500); // Reduced from 3000 to 500ms for faster scrolling
                     }
+                    
+                    // Scroll back to top for consistent snapshot
+                    ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, 0)");
+                    Thread.sleep(2000);
+                    
+                    // Take Percy snapshot with options
+                    Map<String, Object> options = new HashMap<>();
+                    options.put("fullPage", true);
+                    options.put("timeout", 60000); // 60 seconds timeout
+                    
+                 // Take Percy snapshot with width matching Figma exactly
+                    percy.snapshot(screenShotName, java.util.List.of(1440));
+
+                  //  percy.snapshot(screenShotName, options);
+                    System.out.println("Snapshot taken: " + screenShotName);
                 }
             } catch (Exception e) {
                 System.err.println("Error processing row " + i + ": " + e.getMessage());
                 e.printStackTrace();
+                // Continue with next URL instead of failing the whole test
             }
         }
-    
-        }
+    }
     
     /**
      * Wait for page to be fully loaded

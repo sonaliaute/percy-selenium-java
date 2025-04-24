@@ -1,39 +1,27 @@
 package io.percy.selenium;
 
-import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 import org.testng.Assert;
-
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.MutableCapabilities;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
+// Fix for MutableCapabilities import error
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import java.io.File;
-import java.io.FileInputStream;
+import javax.net.ssl.*;
+import java.io.*;
 import java.net.URI;
+import java.nio.file.Files;
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
-
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.nio.file.Files;
-
-
-public class TestCode {
+public class BajajDemoTestMain {
     private static final String USERNAME = "sonaliaute_962AWm";
     private static final String ACCESSKEY = "ZmAc2cBFx8zdS9ivi3HW";
     private static final String URL = "https://" + USERNAME + ":" + ACCESSKEY + "@hub-cloud.browserstack.com/wd/hub";
@@ -216,8 +204,8 @@ public class TestCode {
             
             System.out.println("Setting up WebDriver capabilities...");
             
-            // Use W3C standard capabilities format
-            MutableCapabilities options = new MutableCapabilities();
+            // Use W3C standard capabilities format - fix for MutableCapabilities resolution
+            org.openqa.selenium.MutableCapabilities options = new org.openqa.selenium.MutableCapabilities();
             
             // Create browserstack options
             Map<String, Object> bstackOptions = new HashMap<>();
@@ -234,6 +222,8 @@ public class TestCode {
             
             // Create remote webdriver using URI to avoid deprecated URL constructor
             driver = new RemoteWebDriver(URI.create(URL).toURL(), options);
+            
+            // Initialize Percy (without custom config parameters)
             percy = new io.percy.selenium.Percy(driver);
             
             System.out.println("Successfully connected to BrowserStack");
@@ -285,41 +275,85 @@ public class TestCode {
 
     @Test
     public void takesMultipleSnapshotsInOneTestCase() throws InterruptedException {
-    if (sheet == null) {
-    Assert.fail("Excel sheet is null. Check if file exists and is loaded properly.");
-    return;
-    }
+        if (sheet == null) {
+            Assert.fail("Excel sheet is null. Check if file exists and is loaded properly.");
+            return;
+        }
 
-    int lastRow = sheet.getLastRowNum();
-    System.out.println("Processing " + lastRow + " rows from Excel sheet");
+        int lastRow = sheet.getLastRowNum();
+        System.out.println("Processing " + lastRow + " rows from Excel sheet");
 
-    for (int i = 1; i <= lastRow; i++) {
-    String url = sheet.getRow(i).getCell(1).getStringCellValue();
-    String screenShotName = sheet.getRow(i).getCell(0).getStringCellValue();
+        for (int i = 1; i <= lastRow; i++) {
+            try {
+                String url = sheet.getRow(i).getCell(1).getStringCellValue();
+                String screenShotName = sheet.getRow(i).getCell(0).getStringCellValue();
 
-    if (screenShotName != null && !screenShotName.isEmpty()) {
-    System.out.println("Processing row " + i + ": " + screenShotName + " -> " + url);
-    driver.get(TEST_URL + url);
-    // driver.manage().window().fullscreen();
-    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-    driver.manage().window().setSize(new Dimension(1280, 800));
+                if (screenShotName != null && !screenShotName.isEmpty()) {
+                    System.out.println("Processing row " + i + ": " + screenShotName + " -> " + url);
+                    driver.get(TEST_URL + url);
 
-    int height = driver.manage().window().getSize().getHeight();
-    int currentposition = 0;
-    int increment = height / 10;
-
-    for (int j = 0; j <= 12; j++) {
-    currentposition = j * increment;
-    ((JavascriptExecutor) driver)
-    .executeScript("window.scrollBy(0, " + currentposition + ")");
-    Thread.sleep(3000);
-    }
-
-    // Take Percy snapshot
-    percy.snapshot(screenShotName);
-    System.out.println("Snapshot taken: " + screenShotName);
-    }
+                    // Set viewport sizes for responsive testing - match sizes from screenshot
+                    int[] widths = {375, 1280};  // Match the widths shown in your testing tool
+                    
+                    for (int width : widths) {
+                        // Set window dimensions - height can be adjusted as needed
+                        driver.manage().window().setSize(new Dimension(width, 900));
+                        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+                        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(60));
+                        
+                        // Wait for page to fully load
+                        waitForPageLoad();
+                        
+                        // Ensure we're at the top of the page for consistent snapshot
+                        ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, 0)");
+                        Thread.sleep(2000);
+                        
+                        // Take Percy snapshot with appropriate naming convention
+                        String responsiveSnapshotName = width == 375 ? screenShotName + "_PL" : screenShotName + "_GL";
+                        percy.snapshot(responsiveSnapshotName, java.util.List.of(width));
+                        System.out.println("Snapshot taken: " + responsiveSnapshotName + " at width: " + width + "px");
+                    }
+                }
+            } catch (Exception e) {
+                System.err.println("Error processing row " + i + ": " + e.getMessage());
+                e.printStackTrace();
             }
-  
+        }
+    
+        }
+    
+    /**
+     * Wait for page to be fully loaded
+     */
+    private void waitForPageLoad() {
+        try {
+            System.out.println("Waiting for page to load...");
+            
+            // Wait for document ready state
+            new org.openqa.selenium.support.ui.WebDriverWait(driver, Duration.ofSeconds(60))
+                .until(driver -> ((JavascriptExecutor) driver)
+                    .executeScript("return document.readyState").equals("complete"));
+            
+            System.out.println("Document ready state is complete");
+            
+            // Also wait for jQuery if present
+            Boolean jQueryPresent = (Boolean) ((JavascriptExecutor) driver)
+                .executeScript("return typeof jQuery !== 'undefined'");
+                
+            if (Boolean.TRUE.equals(jQueryPresent)) {
+                System.out.println("jQuery detected, waiting for AJAX requests to complete...");
+                new org.openqa.selenium.support.ui.WebDriverWait(driver, Duration.ofSeconds(30))
+                    .until(driver -> (Boolean) ((JavascriptExecutor) driver)
+                        .executeScript("return jQuery.active == 0"));
+                System.out.println("jQuery AJAX requests completed");
+            }
+            
+            // Additional wait for any animations or delayed content
+            System.out.println("Additional wait for final rendering...");
+            Thread.sleep(5000);
+            System.out.println("Page load wait completed");
+        } catch (Exception e) {
+            System.err.println("Error waiting for page load: " + e.getMessage());
+        }
     }
 }
