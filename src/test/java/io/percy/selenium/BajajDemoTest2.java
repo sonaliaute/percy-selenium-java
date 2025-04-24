@@ -8,6 +8,7 @@ import org.testng.Assert;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.MutableCapabilities;
 
@@ -300,8 +301,9 @@ public class BajajDemoTest2 {
             if (screenShotName != null && !screenShotName.isEmpty()) {
                 System.out.println("Processing row " + i + ": " + screenShotName + " -> " + url);
                 driver.get(TEST_URL + url);
-                driver.manage().window().fullscreen();
+              //  driver.manage().window().fullscreen();
                 driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+                driver.manage().window().setSize(new Dimension(1280, 800));
                 
                 int height = driver.manage().window().getSize().getHeight();
                 int currentposition = 0;
