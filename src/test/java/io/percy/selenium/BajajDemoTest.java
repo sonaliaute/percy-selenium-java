@@ -21,8 +21,8 @@ import java.util.Map;
 import java.util.Properties;
 
 public class BajajDemoTest {
-    private static final String USERNAME = "monishkhanzode_WJlN0B";
-    private static final String ACCESSKEY = "eETrxNx2VwYzmLcUP2Su";
+    private static final String USERNAME = "sonaliaute_962AWm";
+    private static final String ACCESSKEY = "ZmAc2cBFx8zdS9ivi3HW";
     private static final String URL = "https://" + USERNAME + ":" + ACCESSKEY + "@hub-cloud.browserstack.com/wd/hub";
     private WebDriver driver;
     private io.percy.selenium.Percy percy;
