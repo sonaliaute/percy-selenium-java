@@ -1,7 +1,6 @@
 package io.percy.selenium;
 
 import org.testng.annotations.BeforeSuite;
-
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.Test;
 import org.testng.Assert;
@@ -34,7 +33,7 @@ import java.io.InputStreamReader;
 import java.nio.file.Files;
 
 
-public class BajajDemoTest2 {
+public class TestCode {
     private static final String USERNAME = "sonaliaute_962AWm";
     private static final String ACCESSKEY = "ZmAc2cBFx8zdS9ivi3HW";
     private static final String URL = "https://" + USERNAME + ":" + ACCESSKEY + "@hub-cloud.browserstack.com/wd/hub";
@@ -286,40 +285,41 @@ public class BajajDemoTest2 {
 
     @Test
     public void takesMultipleSnapshotsInOneTestCase() throws InterruptedException {
-        if (sheet == null) {
-            Assert.fail("Excel sheet is null. Check if file exists and is loaded properly.");
-            return;
-        }
-        
-        int lastRow = sheet.getLastRowNum();
-        System.out.println("Processing " + lastRow + " rows from Excel sheet");
+    if (sheet == null) {
+    Assert.fail("Excel sheet is null. Check if file exists and is loaded properly.");
+    return;
+    }
 
-        for (int i = 1; i <= lastRow; i++) {
-            String url = sheet.getRow(i).getCell(1).getStringCellValue();
-            String screenShotName = sheet.getRow(i).getCell(0).getStringCellValue();
+    int lastRow = sheet.getLastRowNum();
+    System.out.println("Processing " + lastRow + " rows from Excel sheet");
 
-            if (screenShotName != null && !screenShotName.isEmpty()) {
-                System.out.println("Processing row " + i + ": " + screenShotName + " -> " + url);
-                driver.get(TEST_URL + url);
-              //  driver.manage().window().fullscreen();
-                driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-                driver.manage().window().setSize(new Dimension(1280, 800));
-                
-                int height = driver.manage().window().getSize().getHeight();
-                int currentposition = 0;
-                int increment = height / 10;
-                
-                for (int j = 0; j <= 12; j++) {
-                    currentposition = j * increment;
-                    ((JavascriptExecutor) driver)
-                        .executeScript("window.scrollBy(0, " + currentposition + ")");
-                    Thread.sleep(3000);
-                }
-                
-                // Take Percy snapshot
-                percy.snapshot(screenShotName);
-                System.out.println("Snapshot taken: " + screenShotName);
+    for (int i = 1; i <= lastRow; i++) {
+    String url = sheet.getRow(i).getCell(1).getStringCellValue();
+    String screenShotName = sheet.getRow(i).getCell(0).getStringCellValue();
+
+    if (screenShotName != null && !screenShotName.isEmpty()) {
+    System.out.println("Processing row " + i + ": " + screenShotName + " -> " + url);
+    driver.get(TEST_URL + url);
+    // driver.manage().window().fullscreen();
+    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+    driver.manage().window().setSize(new Dimension(1280, 800));
+
+    int height = driver.manage().window().getSize().getHeight();
+    int currentposition = 0;
+    int increment = height / 10;
+
+    for (int j = 0; j <= 12; j++) {
+    currentposition = j * increment;
+    ((JavascriptExecutor) driver)
+    .executeScript("window.scrollBy(0, " + currentposition + ")");
+    Thread.sleep(3000);
+    }
+
+    // Take Percy snapshot
+    percy.snapshot(screenShotName);
+    System.out.println("Snapshot taken: " + screenShotName);
+    }
             }
-        }
+  
     }
 }

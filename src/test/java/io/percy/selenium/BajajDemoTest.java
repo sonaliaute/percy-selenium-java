@@ -279,7 +279,7 @@ public class BajajDemoTest {
             Assert.fail("Excel sheet is null. Check if file exists and is loaded properly.");
             return;
         }
-        
+
         int lastRow = sheet.getLastRowNum();
         System.out.println("Processing " + lastRow + " rows from Excel sheet");
 
@@ -292,28 +292,36 @@ public class BajajDemoTest {
                     System.out.println("Processing row " + i + ": " + screenShotName + " -> " + url);
                     driver.get(TEST_URL + url);
 
-                    // Set consistent viewport size - CRITICAL FOR COMPARISON
-                    driver.manage().window().setSize(new Dimension(1440, 900)); // Match Figma width
-                    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
-                    driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(60));
-
-                    // Wait for page to fully load
-                    waitForPageLoad();
-
-                    // Ensure we're at the top of the page for consistent snapshot
-                    ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, 0)");
-                    Thread.sleep(2000);
-
-                    // Take Percy snapshot with width matching Figma exactly
-                    percy.snapshot(screenShotName, java.util.List.of(1440));
-                    System.out.println("Snapshot taken: " + screenShotName);
+                    // Set viewport sizes for responsive testing - match sizes from screenshot
+                    int[] widths = {375, 1280};  // Match the widths shown in your testing tool
+                    
+                    for (int width : widths) {
+                        // Set window dimensions - height can be adjusted as needed
+                        driver.manage().window().setSize(new Dimension(width, 900));
+                        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+                        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(60));
+                        
+                        // Wait for page to fully load
+                        waitForPageLoad();
+                        
+                        // Ensure we're at the top of the page for consistent snapshot
+                        ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, 0)");
+                        Thread.sleep(2000);
+                        
+                        // Take Percy snapshot with appropriate naming convention
+                        String responsiveSnapshotName = width == 375 ? screenShotName + "_PL" : screenShotName + "_GL";
+                        percy.snapshot(responsiveSnapshotName, java.util.List.of(width));
+                        System.out.println("Snapshot taken: " + responsiveSnapshotName + " at width: " + width + "px");
+                    }
                 }
             } catch (Exception e) {
                 System.err.println("Error processing row " + i + ": " + e.getMessage());
                 e.printStackTrace();
             }
         }
-    }
+    
+        }
+    
     /**
      * Wait for page to be fully loaded
      */
