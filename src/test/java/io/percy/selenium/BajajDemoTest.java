@@ -4,6 +4,7 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 import org.testng.Assert;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -296,6 +297,10 @@ public class BajajDemoTest {
                     driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
                     driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(60));
                     
+                    // Set consistent viewport size - IMPORTANT FOR FIGMA COMPARISON
+                    // Make sure this size matches your Figma frame dimensions 
+                    driver.manage().window().setSize(new Dimension(1280, 800));
+
                     // Wait for page to fully load
                     waitForPageLoad();
                     
@@ -314,12 +319,9 @@ public class BajajDemoTest {
                     ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, 0)");
                     Thread.sleep(2000);
                     
-                    // Take Percy snapshot with options
-                    Map<String, Object> options = new HashMap<>();
-                    options.put("fullPage", true);
-                    options.put("timeout", 60000); // 60 seconds timeout
-                    
-                    percy.snapshot(screenShotName, options);
+                    // Percy snapshot with specific widths for Figma comparison
+                    // Instead of using options map which is causing errors
+                    percy.snapshot(screenShotName, java.util.List.of(1280, 375));
                     System.out.println("Snapshot taken: " + screenShotName);
                 }
             } catch (Exception e) {

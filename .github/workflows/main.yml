@@ -26,11 +26,22 @@ jobs:
     - name: Set Percy token as secret variable
       run: echo "PERCY_TOKEN=${{ secrets.PERCY_TOKEN }}" >> $GITHUB_ENV
       
-    - name: Set Percy commit, branch, and target branch info
+    - name: Set Percy variables
       run: |
         echo "PERCY_COMMIT=${{ github.sha }}" >> $GITHUB_ENV
-        echo "PERCY_BRANCH=${{ github.ref_name }}" >> $GITHUB_ENV
-        echo "PERCY_TARGET_BRANCH=main" >> $GITHUB_ENV
+        # Use special branch naming for PRs to enable proper comparisons
+        if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+          echo "PERCY_BRANCH=pull/${{ github.event.pull_request.number }}" >> $GITHUB_ENV
+          echo "PERCY_TARGET_BRANCH=${{ github.base_ref }}" >> $GITHUB_ENV
+        else
+          # For direct pushes, use the branch name
+          echo "PERCY_BRANCH=${{ github.ref_name }}" >> $GITHUB_ENV
+          
+          # If not on main/master, compare against main
+          if [[ "${{ github.ref_name }}" != "main" && "${{ github.ref_name }}" != "master" ]]; then
+            echo "PERCY_TARGET_BRANCH=main" >> $GITHUB_ENV
+          fi
+        fi
     
     - name: Build with Maven
       run: mvn clean install -DskipTests
