@@ -291,21 +291,21 @@ public class BajajDemoTest {
                 if (screenShotName != null && !screenShotName.isEmpty()) {
                     System.out.println("Processing row " + i + ": " + screenShotName + " -> " + url);
                     driver.get(TEST_URL + url);
-                    
+
                     // Set consistent viewport size - CRITICAL FOR COMPARISON
-                    driver.manage().window().setSize(new Dimension(1280, 800));
+                    driver.manage().window().setSize(new Dimension(1440, 900)); // Match Figma width
                     driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
                     driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(60));
 
                     // Wait for page to fully load
                     waitForPageLoad();
-                    
+
                     // Ensure we're at the top of the page for consistent snapshot
                     ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, 0)");
                     Thread.sleep(2000);
-                    
-                    // ONLY use 1280px width to match your uploads/Figma designs
-                    percy.snapshot(screenShotName, java.util.List.of(1280));
+
+                    // Take Percy snapshot with width matching Figma exactly
+                    percy.snapshot(screenShotName, java.util.List.of(1440));
                     System.out.println("Snapshot taken: " + screenShotName);
                 }
             } catch (Exception e) {
@@ -314,7 +314,6 @@ public class BajajDemoTest {
             }
         }
     }
-    
     /**
      * Wait for page to be fully loaded
      */
