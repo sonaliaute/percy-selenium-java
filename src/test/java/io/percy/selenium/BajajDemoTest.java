@@ -292,42 +292,25 @@ public class BajajDemoTest {
                     System.out.println("Processing row " + i + ": " + screenShotName + " -> " + url);
                     driver.get(TEST_URL + url);
                     
-                    // Set window to fullscreen and add improved waits
-                    driver.manage().window().fullscreen();
+                    // Set consistent viewport size - CRITICAL FOR COMPARISON
+                    driver.manage().window().setSize(new Dimension(1280, 800));
                     driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
                     driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(60));
-                    
-                    // Set consistent viewport size - IMPORTANT FOR FIGMA COMPARISON
-                    // Make sure this size matches your Figma frame dimensions 
-                    driver.manage().window().setSize(new Dimension(1280, 800));
 
                     // Wait for page to fully load
                     waitForPageLoad();
                     
-                    int height = driver.manage().window().getSize().getHeight();
-                    int currentposition = 0;
-                    int increment = height / 10;
-                    
-                    for (int j = 0; j <= 12; j++) {
-                        currentposition = j * increment;
-                        ((JavascriptExecutor) driver)
-                            .executeScript("window.scrollBy(0, " + currentposition + ")");
-                        Thread.sleep(500); // Reduced from 3000 to 500ms for faster scrolling
-                    }
-                    
-                    // Scroll back to top for consistent snapshot
+                    // Ensure we're at the top of the page for consistent snapshot
                     ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, 0)");
                     Thread.sleep(2000);
                     
-                    // Percy snapshot with specific widths for Figma comparison
-                    // Instead of using options map which is causing errors
-                    percy.snapshot(screenShotName, java.util.List.of(1280, 375));
+                    // ONLY use 1280px width to match your uploads/Figma designs
+                    percy.snapshot(screenShotName, java.util.List.of(1280));
                     System.out.println("Snapshot taken: " + screenShotName);
                 }
             } catch (Exception e) {
                 System.err.println("Error processing row " + i + ": " + e.getMessage());
                 e.printStackTrace();
-                // Continue with next URL instead of failing the whole test
             }
         }
     }
