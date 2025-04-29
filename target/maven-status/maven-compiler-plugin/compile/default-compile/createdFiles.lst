@@ -1,4 +1,5 @@
 io\percy\selenium\utils\ExcelReader$1.class
 io\percy\selenium\core\ConfigManager.class
 io\percy\selenium\core\WebDriverManager.class
+io\percy\selenium\utils\PopupHandler.class
 io\percy\selenium\utils\ExcelReader.class

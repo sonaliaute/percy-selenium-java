@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: io.percy.selenium.SkippingIgnoringPopups
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 216.0 s -- in io.percy.selenium.SkippingIgnoringPopups

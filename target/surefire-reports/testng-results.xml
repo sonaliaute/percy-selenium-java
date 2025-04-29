@@ -2,24 +2,24 @@
 <testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2025-04-24T15:57:55 IST" name="Surefire suite" finished-at="2025-04-24T15:59:21 IST" duration-ms="85754">
+  <suite started-at="2025-04-27T13:54:01 IST" name="Surefire suite" finished-at="2025-04-27T13:55:42 IST" duration-ms="100467">
     <groups>
     </groups>
-    <test started-at="2025-04-24T15:57:55 IST" name="Surefire test" finished-at="2025-04-24T15:59:21 IST" duration-ms="85754">
-      <class name="io.percy.selenium.BajajDemoTest">
-        <test-method is-config="true" signature="testSetup()[pri:0, instance:io.percy.selenium.BajajDemoTest@20d28811]" started-at="2025-04-24T15:57:45 IST" name="testSetup" finished-at="2025-04-24T15:57:55 IST" duration-ms="10398" status="PASS">
+    <test started-at="2025-04-27T13:54:01 IST" name="Surefire test" finished-at="2025-04-27T13:55:42 IST" duration-ms="100467">
+      <class name="io.percy.selenium.SkippingIgnoringPopups">
+        <test-method is-config="true" signature="testSetup()[pri:0, instance:io.percy.selenium.SkippingIgnoringPopups@20d28811]" started-at="2025-04-27T13:52:33 IST" name="testSetup" finished-at="2025-04-27T13:54:01 IST" duration-ms="88142" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testSetup -->
-        <test-method signature="takesMultipleSnapshotsInOneTestCase()[pri:0, instance:io.percy.selenium.BajajDemoTest@20d28811]" started-at="2025-04-24T15:57:55 IST" name="takesMultipleSnapshotsInOneTestCase" finished-at="2025-04-24T15:59:21 IST" duration-ms="85708" status="PASS">
+        <test-method signature="takesMultipleSnapshotsInOneTestCase()[pri:0, instance:io.percy.selenium.SkippingIgnoringPopups@20d28811]" started-at="2025-04-27T13:54:02 IST" name="takesMultipleSnapshotsInOneTestCase" finished-at="2025-04-27T13:55:42 IST" duration-ms="99982" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- takesMultipleSnapshotsInOneTestCase -->
-        <test-method is-config="true" signature="testTeardown()[pri:0, instance:io.percy.selenium.BajajDemoTest@20d28811]" started-at="2025-04-24T15:59:21 IST" name="testTeardown" finished-at="2025-04-24T15:59:23 IST" duration-ms="1349" status="PASS">
+        <test-method is-config="true" signature="testTeardown()[pri:0, instance:io.percy.selenium.SkippingIgnoringPopups@20d28811]" started-at="2025-04-27T13:55:42 IST" name="testTeardown" finished-at="2025-04-27T13:55:44 IST" duration-ms="2201" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testTeardown -->
-      </class> <!-- io.percy.selenium.BajajDemoTest -->
+      </class> <!-- io.percy.selenium.SkippingIgnoringPopups -->
     </test> <!-- Surefire test -->
   </suite> <!-- Surefire suite -->
 </testng-results>
