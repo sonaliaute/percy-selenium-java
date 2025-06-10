@@ -1,0 +1,15 @@
+MAVEN CMDS TO RUN THE SCRIPT:
+
+mvn clean test -Dtest=XPathScreenshotCapture
+
+# Run using Maven Exec Plugin (as a standalone application)
+mvn clean compile exec:java
+
+# OR run as a TestNG test using Maven Surefire Plugin
+mvn clean test
+
+# You can also specify the test class directly:
+mvn clean test -Dtest=XPathScreenshotCapture
+
+# You can pass parameters from command line:
+mvn clean test -Durl=https://your-specific-url.com -Dscreenshot.dir=custom-screenshot-dir

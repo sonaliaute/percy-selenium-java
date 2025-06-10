@@ -1,0 +1,46 @@
+  // Method to switch between native and web contexts for hybrid apps
+    protected static void switchToWebView() {
+        Set<String> contextNames = driver.getContextHandles();
+        System.out.println("Available contexts: " + contextNames);
+        
+        for (String contextName : contextNames) {
+            if (contextName.contains("WEBVIEW") || contextName.contains("CHROMIUM")) {
+                driver.context(contextName);
+                System.out.println("✅ Switched to WebView context: " + contextName);
+                return;
+            }
+        }
+        System.out.println("ℹ️ No WebView context found, staying in current context");
+    }
+    
+    protected void switchToNativeApp() {
+        driver.context("NATIVE_APP");
+        System.out.println("✅ Switched to Native context");
+    }
+    
+    protected String getCurrentContext() {
+        String currentContext = driver.getContext();
+        System.out.println("Current context: " + currentContext);
+        return currentContext;
+    }
+    
+    protected String getCurrentPageInfo() {
+        try {
+            if (driver.getContext().contains("WEBVIEW")) {
+                return driver.getCurrentUrl();
+            } else {
+                return "native-context";
+            }
+        } catch (Exception e) {
+            return "unknown-page";
+        }
+    }
+    
+    protected void waitForSeconds(int seconds) {
+        try {
+            Thread.sleep(seconds * 1000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
+}
