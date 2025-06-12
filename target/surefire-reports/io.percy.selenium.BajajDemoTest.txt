@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: io.percy.selenium.BajajDemoTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 98.55 s -- in io.percy.selenium.BajajDemoTest

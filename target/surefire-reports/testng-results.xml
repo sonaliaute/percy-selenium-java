@@ -2,24 +2,24 @@
 <testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2025-04-29T17:26:31 IST" name="Surefire suite" finished-at="2025-04-29T17:27:22 IST" duration-ms="50614">
+  <suite started-at="2025-06-12T10:30:48 IST" name="Surefire suite" finished-at="2025-06-12T10:31:50 IST" duration-ms="61958">
     <groups>
     </groups>
-    <test started-at="2025-04-29T17:26:31 IST" name="Surefire test" finished-at="2025-04-29T17:27:22 IST" duration-ms="50614">
-      <class name="io.percy.selenium.xyz">
-        <test-method is-config="true" signature="testSetup()[pri:0, instance:io.percy.selenium.xyz@20d28811]" started-at="2025-04-29T17:26:19 IST" name="testSetup" finished-at="2025-04-29T17:26:31 IST" duration-ms="12390" status="PASS">
+    <test started-at="2025-06-12T10:30:48 IST" name="Surefire test" finished-at="2025-06-12T10:31:50 IST" duration-ms="61958">
+      <class name="io.percy.selenium.BajajDemoTestMain">
+        <test-method is-config="true" signature="testSetup()[pri:0, instance:io.percy.selenium.BajajDemoTestMain@20d28811]" started-at="2025-06-12T10:30:20 IST" name="testSetup" finished-at="2025-06-12T10:30:48 IST" duration-ms="27925" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testSetup -->
-        <test-method signature="takesMultipleSnapshotsInOneTestCaseForMobile()[pri:0, instance:io.percy.selenium.xyz@20d28811]" started-at="2025-04-29T17:26:31 IST" name="takesMultipleSnapshotsInOneTestCaseForMobile" finished-at="2025-04-29T17:27:22 IST" duration-ms="50540" status="PASS">
+        <test-method signature="takesMultipleSnapshotsInOneTestCase()[pri:0, instance:io.percy.selenium.BajajDemoTestMain@20d28811]" started-at="2025-06-12T10:30:48 IST" name="takesMultipleSnapshotsInOneTestCase" finished-at="2025-06-12T10:31:50 IST" duration-ms="61887" status="PASS">
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- takesMultipleSnapshotsInOneTestCaseForMobile -->
-        <test-method is-config="true" signature="testTeardown()[pri:0, instance:io.percy.selenium.xyz@20d28811]" started-at="2025-04-29T17:27:22 IST" name="testTeardown" finished-at="2025-04-29T17:27:24 IST" duration-ms="2295" status="PASS">
+        </test-method> <!-- takesMultipleSnapshotsInOneTestCase -->
+        <test-method is-config="true" signature="testTeardown()[pri:0, instance:io.percy.selenium.BajajDemoTestMain@20d28811]" started-at="2025-06-12T10:31:50 IST" name="testTeardown" finished-at="2025-06-12T10:31:52 IST" duration-ms="1774" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testTeardown -->
-      </class> <!-- io.percy.selenium.xyz -->
+      </class> <!-- io.percy.selenium.BajajDemoTestMain -->
     </test> <!-- Surefire test -->
   </suite> <!-- Surefire suite -->
 </testng-results>
